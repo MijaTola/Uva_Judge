@@ -1,70 +1,54 @@
 #include <iostream>
-#include <deque>
 #include <vector>
+#include <queue>
+#include <map>
+#include <string>
+
 using namespace std;
-int t;
-int n;
-deque<int> Q;
-int matriz[100][100];
-string command;
-string number;
-vector<int> positions;
+
 int main(){
-cin >> t;
-for (int i = 0; i < t; ++i)
-{
-	cin >> n;
-	positions.push_back(n);
-	for (int j = 0; j < n; ++j)
-	{
-		int x; 
-		cin >> x;
-		matriz[i][j] = x;
+ios::sync_with_stdio(false); cin.tie(0);	
+int t;
+int k = 1;
+while(cin >> t && t != 0){
+    cout << "Scenario #" << k++ << endl;
+    map<int, int> team;
+    for(int i=0; i<t; ++i){
+    int invs;
+    cin >> invs;
+    	for(int j=0; j<invs; ++j){
+        int inv;
+        cin >> inv;
+        team[inv] = i;
+      	}
 	}
-}
-string command;
-int number;
-cin >> command;
-while(command != "STOP"){
-cin >> number;
-bool sw = false;
-int i = 0;
-int choice;
-if(command == "QUEUE")
-{
-while(i < positions.size() && !sw)
-{
-	for (int j = 0; j < positions[i]; ++j)
-	{
-		if(matriz[i][j] != number){
-			sw = true;
-		}else{
-			sw = false;
-		}
-	}
-	if(sw){
-		matriz[i][positions[i]+1] = number;
-		positions[i] = positions[i]+1;
-	}
-	i++;
-	Q.push_back(number);
-}
-}else if(command == DEQUEUE){
-	int isEmpty;
-	int x = Q.front();
-	while(i < positions.size() && !sw)
-	{
-	for (int j = 0; j < positions[i]; ++j)
-	{
-		if(matriz[i][j] != number){
-			sw = true;
-		}else{
-			sw = false;
-		}
-	}
-	i++;
-	}
-}
-}
-}
+
+    string command;
+    int number;
+    vector<queue<int> > formTeams(t);
+    queue<int> list;
+    vector<bool> visited(t,false);
+    while(cin >> command && command != "STOP"){
+    	if(command == "ENQUEUE"){
+    		cin >> number;
+    		int x = team[number];
+    		formTeams[x].push(number);
+    		if(!visited[x]){
+    			list.push(x);
+    			visited[x] = true;
+    		}
+    	}else{
+    		int x = list.front();
+    		number = formTeams[x].front();
+    		formTeams[x].pop();
+    		cout << number << endl;
+    		if(formTeams[x].empty()){
+    			list.pop();
+    			visited[x] = false;
+    		}
+    	}
+    }
+    cout << endl;
+  }
+  return 0;
 }

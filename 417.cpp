@@ -38,7 +38,3 @@ int main(){
 	}
 	return 0;
 }
-/*#define BitSet(arg,pos)   ((arg)|(1<<pos))
-#define BitClr(arg,pos)   ((arg)&~(1<<pos))
-#define BitTst(arg,pos)     bool ((arg)&(1<<pos))
-#define BitFlp(arg,pos)     bool ((arg)^(1<<pos)*/
